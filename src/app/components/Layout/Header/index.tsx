@@ -17,6 +17,7 @@ const Header: React.FC = () => {
   const [sticky, setSticky] = useState(false)
   const [isSignInOpen, setIsSignInOpen] = useState(false)
   const [isSignUpOpen, setIsSignUpOpen] = useState(false)
+  const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false)
 
   const navbarRef = useRef<HTMLDivElement>(null)
   const signInRef = useRef<HTMLDivElement>(null)
@@ -85,17 +86,22 @@ const Header: React.FC = () => {
   }, [])
 
   const openCalendly = () => {
+    const calendlyUrl = 'https://calendly.com/contractorboost-info/30min'
+
     const calendly = (window as Window & {
       Calendly?: {
         initPopupWidget: (options: { url: string }) => void
       }
     }).Calendly
 
-    if (calendly) {
+    if (calendly && isCalendlyLoaded) {
       calendly.initPopupWidget({
-        url: 'https://calendly.com/contractorboost-info/30min',
+        url: calendlyUrl,
       })
+      return
     }
+
+    window.open(calendlyUrl, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -106,6 +112,7 @@ const Header: React.FC = () => {
       <Script
         src='https://assets.calendly.com/assets/external/widget.js'
         strategy='afterInteractive'
+        onLoad={() => setIsCalendlyLoaded(true)}
       />
       <div className='lg:py-0 py-2'>
         <div className='container mx-auto max-w-(--breakpoint-xl) flex items-center justify-between px-4'>

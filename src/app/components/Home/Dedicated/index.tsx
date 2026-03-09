@@ -10,7 +10,7 @@ const plans = [
     period: '/mo',
     description: 'A clean, professional online presence for contractors getting started.',
     cta: 'Book A Call',
-    href: '#',
+    href: 'https://calendly.com/contractorboost-info/30min',
     featured: false,
     features: [
       'Functional Website (5 pages)',
@@ -26,7 +26,7 @@ const plans = [
     period: '/mo',
     description: 'Built for growth with lead automation, review generation, and marketing tools.',
     cta: 'Book A Call',
-    href: '#',
+    href: 'https://calendly.com/contractorboost-info/30min',
     featured: true,
     features: [
       'Functional Website (10–20 pages)',
@@ -44,7 +44,7 @@ const plans = [
     period: '/mo',
     description: 'A complete growth system for contractors ready to scale aggressively.',
     cta: 'Book A Call',
-    href: '#',
+    href: 'https://calendly.com/contractorboost-info/30min',
     featured: false,
     dark: true,
     features: [

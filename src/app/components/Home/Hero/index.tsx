@@ -63,11 +63,14 @@ const Hero = () => {
                   </div>
                 </div>
 
-                <Link href={'#'} className='block'>
-                  <button className='min-w-[220px] rounded-lg bg-[#fec404] px-10 py-4 text-lg font-semibold text-white transition hover:cursor-pointer hover:bg-[#e5b000]'>
-                    Book a call
-                  </button>
-                </Link>
+                <a
+  href='https://calendly.com/contractorboost-info/30min'
+  target='_blank'
+  rel='noopener noreferrer'
+  className='block min-w-[220px] rounded-lg bg-[#fec404] px-10 py-4 text-center text-lg font-semibold text-white transition hover:cursor-pointer hover:bg-[#e5b000]'
+>
+  Book a call
+</a>
               </div>
             </div>
 

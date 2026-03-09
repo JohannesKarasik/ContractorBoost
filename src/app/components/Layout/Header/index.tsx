@@ -9,6 +9,7 @@ import HeaderLink from './Navigation/HeaderLink'
 import MobileHeaderLink from './Navigation/MobileHeaderLink'
 import Signin from '@/app/components/Auth/SignIn'
 import SignUp from '@/app/components/Auth/SignUp'
+import Script from 'next/script'
 import { Icon } from '@iconify/react/dist/iconify.js'
 
 const Header: React.FC = () => {
@@ -83,11 +84,29 @@ const Header: React.FC = () => {
     fetchData()
   }, [])
 
+  const openCalendly = () => {
+    const calendly = (window as Window & {
+      Calendly?: {
+        initPopupWidget: (options: { url: string }) => void
+      }
+    }).Calendly
+
+    if (calendly) {
+      calendly.initPopupWidget({
+        url: 'https://calendly.com/contractorboost-info/30min',
+      })
+    }
+  }
+
   return (
     <header
       className={`fixed top-0 z-40 w-full bg-white transition-all duration-300 border-b border-black/10 ${
         sticky ? 'shadow-lg' : 'shadow-none'
       }`}>
+      <Script
+        src='https://assets.calendly.com/assets/external/widget.js'
+        strategy='afterInteractive'
+      />
       <div className='lg:py-0 py-2'>
         <div className='container mx-auto max-w-(--breakpoint-xl) flex items-center justify-between px-4'>
           <div
@@ -130,13 +149,11 @@ const Header: React.FC = () => {
                 </div>
               </div>
             )}
-<button
-  className='hidden lg:block bg-[#fec404] text-[#ffffff] hover:bg-[#e5b000] border border-[#fec404] px-4 py-2 rounded-lg hover:cursor-pointer'
-  onClick={() => {
-    setIsSignUpOpen(true)
-  }}>
-  Book A Call
-</button>
+            <button
+              className='hidden lg:block bg-[#fec404] text-[#ffffff] hover:bg-[#e5b000] border border-[#fec404] px-4 py-2 rounded-lg hover:cursor-pointer'
+              onClick={openCalendly}>
+              Book A Call
+            </button>
             {isSignUpOpen && (
               <div className='fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50'>
                 <div

@@ -7,7 +7,7 @@ import Articles from '@/app/components/Home/Articles'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contractor Boost',
+  title: 'ContractorBoost',
 }
 
 export default function Home() {

@@ -2,9 +2,9 @@ export default function VideoPage() {
     return (
       <main className="min-h-screen bg-white px-6 pt-32 pb-12 md:pt-40">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-600">
-            Contractors
-          </p>
+        <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.25em] text-gray-600">
+        Contractors
+        </p>
   
           <h1 className="mt-4 text-3xl font-bold leading-tight text-black md:text-5xl">
             How We Use AI & Functional Website Design to Help Small Business

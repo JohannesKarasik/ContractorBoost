@@ -142,7 +142,7 @@ const ReviewCard = ({
         </span>
       </div>
 
-      <p className='min-h-[120px] text-[18px] leading-10 text-[#313741] sm:text-[17px] sm:leading-9'>
+      <p className='min-h-[120px] text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
         {review.text}
       </p>
 
@@ -166,30 +166,52 @@ const ReviewCard = ({
 
 const Testimonials = () => {
   const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const extendedReviews = useMemo(
+    () => [...allReviews, ...allReviews, ...allReviews],
+    [allReviews]
+  )
+
+  const [currentIndex, setCurrentIndex] = useState(allReviews.length)
+  const [isTransitioning, setIsTransitioning] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % allReviews.length)
-    }, 3500)
+      setCurrentIndex((prev) => prev + 1)
+      setIsTransitioning(true)
+    }, 3000)
 
     return () => clearInterval(interval)
-  }, [allReviews.length])
+  }, [])
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + allReviews.length) % allReviews.length)
-  }
+  useEffect(() => {
+    if (currentIndex >= allReviews.length * 2) {
+      const timeout = setTimeout(() => {
+        setIsTransitioning(false)
+        setCurrentIndex(allReviews.length)
+      }, 700)
 
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % allReviews.length)
-  }
+      return () => clearTimeout(timeout)
+    }
+  }, [currentIndex, allReviews.length])
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      const raf = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsTransitioning(true)
+        })
+      })
+
+      return () => cancelAnimationFrame(raf)
+    }
+  }, [isTransitioning])
 
   return (
     <section
       id='Testimonials'
       className='relative overflow-hidden bg-[#f3f4f6] py-24'
     >
-      <div className='container mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-16 max-w-3xl text-center'>
           <p className='text-sm font-bold uppercase tracking-[0.28em] text-[#f4b400]'>
             Testimonials
@@ -200,55 +222,24 @@ const Testimonials = () => {
           </h2>
         </div>
 
-        <div className='relative mx-auto max-w-6xl'>
-          <div className='overflow-hidden'>
-            <div
-              className='flex transition-transform duration-700 ease-in-out'
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {allReviews.map((review, index) => (
-                <div
-                  key={`${review.name}-${review.date}-${index}`}
-                  className='w-full shrink-0 px-2'
-                >
-                  <ReviewCard review={review} />
-                </div>
-              ))}
-            </div>
+        <div className='overflow-hidden'>
+          <div
+            className={`flex ${
+              isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''
+            }`}
+            style={{
+              transform: `translateX(-${currentIndex * (100 / 4)}%)`,
+            }}
+          >
+            {extendedReviews.map((review, index) => (
+              <div
+                key={`${review.name}-${review.date}-${index}`}
+                className='w-full shrink-0 px-3 md:w-1/2 xl:w-1/4'
+              >
+                <ReviewCard review={review} />
+              </div>
+            ))}
           </div>
-
-          <button
-            onClick={goToPrevious}
-            aria-label='Previous review'
-            className='absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#07111f] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:cursor-pointer hover:bg-[#f9fafb] sm:-left-6'
-          >
-            <Icon icon='material-symbols:chevron-left-rounded' className='h-8 w-8' />
-          </button>
-
-          <button
-            onClick={goToNext}
-            aria-label='Next review'
-            className='absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#07111f] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:cursor-pointer hover:bg-[#f9fafb] sm:-right-6'
-          >
-            <Icon icon='material-symbols:chevron-right-rounded' className='h-8 w-8' />
-          </button>
-        </div>
-
-        <div className='mt-10 flex flex-wrap items-center justify-center gap-3'>
-          {allReviews.map((_, index) => {
-            const isActive = index === currentIndex
-
-            return (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Go to review ${index + 1}`}
-                className={`h-3 rounded-full transition-all duration-300 hover:cursor-pointer ${
-                  isActive ? 'w-10 bg-[#07111f]' : 'w-3 bg-black/15'
-                }`}
-              />
-            )
-          })}
         </div>
       </div>
     </section>

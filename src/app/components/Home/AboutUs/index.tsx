@@ -19,7 +19,7 @@ const reviews: Review[] = [
     date: 'Feb 12, 2026',
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
-    platform: 'google',
+    platform: 'trustpilot',
   },
   {
     name: 'bradley cassidy',
@@ -59,7 +59,7 @@ const reviews: Review[] = [
     date: 'Feb 07, 2026',
     text: 'Danny and Joe were great. Very helpful and good at communicating. Thank you so much.',
     image: '/reviews/mike-swallows.png',
-    platform: 'trustpilot',
+    platform: 'google',
   },
   {
     name: 'Tony Davis',
@@ -86,7 +86,7 @@ const extraReviews: Review[] = [
     date: 'Feb 04, 2026',
     text: 'Very solid experience. They moved fast, communicated clearly, and got our new website looking a lot more professional than what we had before.',
     image: '/reviews/chris-martin.png',
-    platform: 'google',
+    platform: 'trustpilot',
   },
   {
     name: 'Luis Hernandez',
@@ -118,7 +118,7 @@ const extraReviews: Review[] = [
     date: 'Jan 28, 2026',
     text: 'Really happy with the service. They answered questions quickly, kept us updated, and got our site launched without dragging the process out.',
     image: '/reviews/derek-hill.png',
-    platform: 'google',
+    platform: 'trustpilot',
   },
   {
     name: 'Cole Thompson',

@@ -8,7 +8,7 @@ const reviews = [
     name: 'Contact JGC Inc.',
     initials: 'CJ',
     date: 'Feb 12, 2026',
-    text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
+    text: "Website looks good and setup was fast, it was under a week. Been about two weeks since we started now and got a couple leads from website, and the phone ai works aswell.",
     image: '/reviews/jgc-inc.png',
     platform: 'google',
   },

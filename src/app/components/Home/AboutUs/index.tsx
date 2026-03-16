@@ -10,6 +10,7 @@ const reviews = [
     date: 'Feb 12, 2026',
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
+    platform: 'google',
   },
   {
     name: 'bradley cassidy',
@@ -17,6 +18,7 @@ const reviews = [
     date: 'Feb 12, 2026',
     text: 'Working with Contractor Boost has been great so far. Helping me get set up on Google Business and website live. Just got it set up a week ago and already getting leads.',
     image: '/reviews/bradley-cassidy.png',
+    platform: 'trustpilot',
   },
   {
     name: 'Salvador Tovar',
@@ -24,6 +26,7 @@ const reviews = [
     date: 'Feb 06, 2026',
     text: "Can't recommend enough.",
     image: '/reviews/salvadortovar.png',
+    platform: 'google',
   },
   {
     name: 'Palmetto Quality Painting',
@@ -31,6 +34,7 @@ const reviews = [
     date: 'Feb 05, 2026',
     text: 'Great experience. I highly recommend their professional services for any needs, as they demonstrate expertise, reliability, and excellent customer support.',
     image: '/reviews/palmetto-quality-painting.png',
+    platform: 'trustpilot',
   },
   {
     name: 'James Bowling',
@@ -38,6 +42,7 @@ const reviews = [
     date: 'Feb 12, 2026',
     text: 'The guys over at Contractor Boost are great and got it all done on time. I highly recommend them.',
     image: '/reviews/james-bowling.png',
+    platform: 'google',
   },
   {
     name: 'Mike Swallows',
@@ -45,6 +50,7 @@ const reviews = [
     date: 'Feb 07, 2026',
     text: 'Danny and Joe were great. Very helpful and good at communicating. Thank you so much.',
     image: '/reviews/mike-swallows.png',
+    platform: 'trustpilot',
   },
   {
     name: 'Tony Davis',
@@ -52,6 +58,7 @@ const reviews = [
     date: 'Feb 06, 2026',
     text: 'Where do I start? They got everything we needed set up within just a couple of days. They responded to my texts and were always there to explain things and help with any questions I had about our new system. I wish I could give more than five stars.',
     image: '/reviews/tony-davis.png',
+    platform: 'google',
   },
   {
     name: 'Jared Walsh',
@@ -59,6 +66,7 @@ const reviews = [
     date: 'Feb 05, 2026',
     text: 'Contractor Boost is the real deal. I got screwed over by a couple marketing companies before, but this company kept their promises and got me set up with a new website in under a week.',
     image: '/reviews/jared-walsh.png',
+    platform: 'trustpilot',
   },
 ]
 
@@ -69,6 +77,7 @@ const extraReviews = [
     date: 'Feb 04, 2026',
     text: 'Very solid experience. They moved fast, communicated clearly, and got our new website looking a lot more professional than what we had before.',
     image: '/reviews/chris-martin.png',
+    platform: 'google',
   },
   {
     name: 'Luis Hernandez',
@@ -76,6 +85,7 @@ const extraReviews = [
     date: 'Feb 03, 2026',
     text: 'These guys know what they are doing. They helped us get everything dialed in and made the whole process way easier than I expected.',
     image: '/reviews/luis-hernandez.png',
+    platform: 'trustpilot',
   },
   {
     name: 'Ryan Cooper',
@@ -83,6 +93,7 @@ const extraReviews = [
     date: 'Feb 02, 2026',
     text: 'Contractor Boost helped us get our online presence cleaned up fast. Good communication, fast turnaround, and they actually followed through on what they said.',
     image: '/reviews/ryan-cooper.png',
+    platform: 'google',
   },
   {
     name: 'Mason Brooks',
@@ -90,6 +101,7 @@ const extraReviews = [
     date: 'Jan 30, 2026',
     text: 'Our old site was outdated and not bringing in much. The new setup looks way better and already feels like a stronger first impression for customers.',
     image: '/reviews/mason-brooks.png',
+    platform: 'trustpilot',
   },
   {
     name: 'Derek Hill',
@@ -97,6 +109,7 @@ const extraReviews = [
     date: 'Jan 28, 2026',
     text: 'Really happy with the service. They answered questions quickly, kept us updated, and got our site launched without dragging the process out.',
     image: '/reviews/derek-hill.png',
+    platform: 'google',
   },
   {
     name: 'Cole Thompson',
@@ -104,6 +117,7 @@ const extraReviews = [
     date: 'Jan 26, 2026',
     text: 'I have dealt with other marketing companies before and this was a completely different experience. Straightforward, helpful, and they delivered what they promised.',
     image: '/reviews/cole-thompson.png',
+    platform: 'trustpilot',
   },
 ]
 
@@ -122,6 +136,16 @@ const GoogleIcon = () => {
   return <Icon icon='logos:google-icon' className='h-8 w-8 shrink-0' />
 }
 
+const TrustpilotIcon = () => {
+  return (
+    <img
+      src='/reviews/trustpilot.png'
+      alt='Trustpilot'
+      className='h-7 w-auto shrink-0 object-contain'
+    />
+  )
+}
+
 const ReviewCard = ({
   review,
 }: {
@@ -131,34 +155,35 @@ const ReviewCard = ({
     date: string
     text: string
     image: string
+    platform: 'google' | 'trustpilot'
   }
 }) => {
   return (
-    <div className='h-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
-      <div className='mb-7 flex items-start justify-between gap-4'>
+    <div className='flex h-full flex-col rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+      <div className='mb-6 flex items-start justify-between gap-4'>
         <StarRow />
         <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
           {review.date}
         </span>
       </div>
 
-      <p className='min-h-[120px] text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
+      <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
         {review.text}
       </p>
 
-      <div className='mt-8 flex items-center justify-between gap-4'>
-        <div className='flex items-center gap-3'>
+      <div className='mt-6 flex items-center justify-between gap-4'>
+        <div className='flex min-w-0 items-center gap-3'>
           <img
             src={review.image}
             alt={review.name}
-            className='h-12 w-12 rounded-full object-cover'
+            className='h-12 w-12 shrink-0 rounded-full object-cover'
           />
-          <span className='text-[16px] font-medium text-[#667085]'>
+          <span className='truncate text-[16px] font-medium text-[#667085]'>
             {review.name}
           </span>
         </div>
 
-        <GoogleIcon />
+        {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
       </div>
     </div>
   )
@@ -224,7 +249,7 @@ const Testimonials = () => {
 
         <div className='overflow-hidden'>
           <div
-            className={`flex ${
+            className={`flex items-stretch ${
               isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''
             }`}
             style={{
@@ -234,7 +259,7 @@ const Testimonials = () => {
             {extendedReviews.map((review, index) => (
               <div
                 key={`${review.name}-${review.date}-${index}`}
-                className='w-full shrink-0 px-3 md:w-1/2 xl:w-1/4'
+                className='flex shrink-0 px-3 md:w-1/2 xl:w-1/4'
               >
                 <ReviewCard review={review} />
               </div>

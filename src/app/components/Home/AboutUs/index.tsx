@@ -159,7 +159,10 @@ const ReviewCard = ({
   }
 }) => {
   return (
-    <div className='inline-block w-full rounded-[28px] border border-black/5 bg-white p-7 align-top shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+    <div
+      className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'
+      style={{ height: 'fit-content' }}
+    >
       <div className='mb-6 flex items-start justify-between gap-4'>
         <StarRow />
         <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
@@ -259,7 +262,8 @@ const Testimonials = () => {
             {extendedReviews.map((review, index) => (
               <div
                 key={`${review.name}-${review.date}-${index}`}
-                className='shrink-0 self-start px-3 md:w-1/2 xl:w-1/4'
+                className='shrink-0 px-3 md:w-1/2 xl:w-1/4'
+                style={{ height: 'fit-content', alignSelf: 'flex-start' }}
               >
                 <ReviewCard review={review} />
               </div>

@@ -14,8 +14,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Aboutus />
       <Articles />
+      <Aboutus />
+
       <FAQ />
       <Dedicated />
 

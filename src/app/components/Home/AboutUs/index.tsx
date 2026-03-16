@@ -73,7 +73,7 @@ const reviews: Review[] = [
     name: 'Jared Walsh',
     initials: 'JW',
     date: 'Feb 05, 2026',
-    text: 'Contractor Boost is the real deal. I got screwed over by a couple marketing companies that tried to sell me a line of BS, but this Joe and Connor kept their promises and got me set up with a new website in under a week.',
+    text: 'Contractor Boost is the real deal. I got screwed over by a couple marketing companies that tried to sell me a line of BS, but Joe and Connor kept their promises and got me set up with a new website in under a week.',
     image: '/reviews/jared-walsh.png',
     platform: 'trustpilot',
   },

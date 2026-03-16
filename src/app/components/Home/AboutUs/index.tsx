@@ -3,12 +3,21 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-const reviews = [
+type Review = {
+  name: string
+  initials: string
+  date: string
+  text: string
+  image: string
+  platform: 'google' | 'trustpilot'
+}
+
+const reviews: Review[] = [
   {
     name: 'Contact JGC Inc.',
     initials: 'CJ',
     date: 'Feb 12, 2026',
-    text: "Website looks good and setup was fast, it was under a week. Been about two weeks since we started now and got a couple leads from website, and the phone ai works aswell.",
+    text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
     platform: 'google',
   },
@@ -70,7 +79,7 @@ const reviews = [
   },
 ]
 
-const extraReviews = [
+const extraReviews: Review[] = [
   {
     name: 'Chris Martin',
     initials: 'CM',
@@ -146,18 +155,7 @@ const TrustpilotIcon = () => {
   )
 }
 
-const ReviewCard = ({
-  review,
-}: {
-  review: {
-    name: string
-    initials: string
-    date: string
-    text: string
-    image: string
-    platform: 'google' | 'trustpilot'
-  }
-}) => {
+const ReviewCard = ({ review }: { review: Review }) => {
   return (
     <div
       className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'
@@ -193,8 +191,8 @@ const ReviewCard = ({
 }
 
 const Testimonials = () => {
-  const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
-  const extendedReviews = useMemo(
+  const allReviews = useMemo<Review[]>(() => [...reviews, ...extraReviews], [])
+  const extendedReviews = useMemo<Review[]>(
     () => [...allReviews, ...allReviews, ...allReviews],
     [allReviews]
   )

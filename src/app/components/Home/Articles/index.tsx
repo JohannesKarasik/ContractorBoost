@@ -5,7 +5,7 @@ import Image from 'next/image'
 const workItems = [
 
   {
-    src: '/images/articles/example2.png',
+    src: '/images/articles/reflectionspools.png',
     alt: 'Contractor project example 2',
   },
   {

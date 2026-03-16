@@ -244,8 +244,8 @@ const Testimonials = () => {
           </p>
 
           <h2 className='mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl'>
-            The proof is in the pudding. See what our clients have to say about us
-          </h2>
+  The proof is in the pudding. See what our clients have to say.
+</h2>
         </div>
 
         <div className='overflow-hidden'>

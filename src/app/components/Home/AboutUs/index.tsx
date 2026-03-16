@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
 const reviews = [
@@ -9,48 +9,56 @@ const reviews = [
     initials: 'CJ',
     date: 'Feb 12, 2026',
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
+    image: '/reviews/jgc-inc.png',
   },
   {
     name: 'bradley cassidy',
     initials: 'BC',
     date: 'Feb 12, 2026',
     text: 'Working with Contractor Boost has been great so far. Helping me get set up on Google Business and website live. Just got it set up a week ago and already getting leads.',
+    image: '/reviews/bradley-cassidy.png',
   },
   {
     name: 'Salvador Tovar',
     initials: 'ST',
     date: 'Feb 06, 2026',
     text: "Can't recommend enough.",
+    image: '/reviews/salvadortovar.png',
   },
   {
     name: 'Palmetto Quality Painting',
     initials: 'PQ',
     date: 'Feb 05, 2026',
     text: 'Great experience. I highly recommend their professional services for any needs, as they demonstrate expertise, reliability, and excellent customer support.',
+    image: '/reviews/palmetto-quality-painting.png',
   },
   {
     name: 'James Bowling',
     initials: 'JB',
     date: 'Feb 12, 2026',
     text: 'The guys over at Contractor Boost are great and got it all done on time. I highly recommend them.',
+    image: '/reviews/james-bowling.png',
   },
   {
     name: 'Mike Swallows',
     initials: 'MS',
     date: 'Feb 07, 2026',
     text: 'Danny and Joe were great. Very helpful and good at communicating. Thank you so much.',
+    image: '/reviews/mike-swallows.png',
   },
   {
     name: 'Tony Davis',
     initials: 'TD',
     date: 'Feb 06, 2026',
     text: 'Where do I start? They got everything we needed set up within just a couple of days. They responded to my texts and were always there to explain things and help with any questions I had about our new system. I wish I could give more than five stars.',
+    image: '/reviews/tony-davis.png',
   },
   {
     name: 'Jared Walsh',
     initials: 'JW',
     date: 'Feb 05, 2026',
     text: 'Contractor Boost is the real deal. I got screwed over by a couple marketing companies before, but this company kept their promises and got me set up with a new website in under a week.',
+    image: '/reviews/jared-walsh.png',
   },
 ]
 
@@ -60,36 +68,42 @@ const extraReviews = [
     initials: 'CM',
     date: 'Feb 04, 2026',
     text: 'Very solid experience. They moved fast, communicated clearly, and got our new website looking a lot more professional than what we had before.',
+    image: '/reviews/chris-martin.png',
   },
   {
     name: 'Luis Hernandez',
     initials: 'LH',
     date: 'Feb 03, 2026',
     text: 'These guys know what they are doing. They helped us get everything dialed in and made the whole process way easier than I expected.',
+    image: '/reviews/luis-hernandez.png',
   },
   {
     name: 'Ryan Cooper',
     initials: 'RC',
     date: 'Feb 02, 2026',
     text: 'Contractor Boost helped us get our online presence cleaned up fast. Good communication, fast turnaround, and they actually followed through on what they said.',
+    image: '/reviews/ryan-cooper.png',
   },
   {
     name: 'Mason Brooks',
     initials: 'MB',
     date: 'Jan 30, 2026',
     text: 'Our old site was outdated and not bringing in much. The new setup looks way better and already feels like a stronger first impression for customers.',
+    image: '/reviews/mason-brooks.png',
   },
   {
     name: 'Derek Hill',
     initials: 'DH',
     date: 'Jan 28, 2026',
     text: 'Really happy with the service. They answered questions quickly, kept us updated, and got our site launched without dragging the process out.',
+    image: '/reviews/derek-hill.png',
   },
   {
     name: 'Cole Thompson',
     initials: 'CT',
     date: 'Jan 26, 2026',
     text: 'I have dealt with other marketing companies before and this was a completely different experience. Straightforward, helpful, and they delivered what they promised.',
+    image: '/reviews/cole-thompson.png',
   },
 ]
 
@@ -116,10 +130,11 @@ const ReviewCard = ({
     initials: string
     date: string
     text: string
+    image: string
   }
 }) => {
   return (
-    <div className='break-inside-avoid rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+    <div className='h-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
       <div className='mb-7 flex items-start justify-between gap-4'>
         <StarRow />
         <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
@@ -133,9 +148,11 @@ const ReviewCard = ({
 
       <div className='mt-8 flex items-center justify-between gap-4'>
         <div className='flex items-center gap-3'>
-          <div className='flex h-12 w-12 items-center justify-center rounded-full bg-[#a3abc0] text-sm font-bold text-white'>
-            {review.initials}
-          </div>
+          <img
+            src={review.image}
+            alt={review.name}
+            className='h-12 w-12 rounded-full object-cover'
+          />
           <span className='text-[16px] font-medium text-[#667085]'>
             {review.name}
           </span>
@@ -148,9 +165,24 @@ const ReviewCard = ({
 }
 
 const Testimonials = () => {
-  const [showMore, setShowMore] = useState(false)
+  const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const visibleReviews = showMore ? [...reviews, ...extraReviews] : reviews
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % allReviews.length)
+    }, 3500)
+
+    return () => clearInterval(interval)
+  }, [allReviews.length])
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + allReviews.length) % allReviews.length)
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % allReviews.length)
+  }
 
   return (
     <section
@@ -164,45 +196,60 @@ const Testimonials = () => {
           </p>
 
           <h2 className='mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl'>
-            Google reviews from our clients
+            The proof is in the pudding. See what our clients have to say about us
           </h2>
+        </div>
 
-          <p className='mt-5 text-lg leading-8 text-[#6b7280]'>
-            See why contractors and local businesses trust us to help them grow
-            online, generate leads, and build a stronger presence.
-          </p>
-
-          <div className='mt-8 inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 shadow-sm ring-1 ring-black/5'>
-            <GoogleIcon />
-            <div className='flex items-center gap-2'>
-              <span className='text-base font-semibold text-[#111827]'>
-                Google Reviews
-              </span>
-              <span className='text-[#f4b400]'>•</span>
-              <span className='text-base font-semibold text-[#111827]'>5.0</span>
+        <div className='relative mx-auto max-w-6xl'>
+          <div className='overflow-hidden'>
+            <div
+              className='flex transition-transform duration-700 ease-in-out'
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {allReviews.map((review, index) => (
+                <div
+                  key={`${review.name}-${review.date}-${index}`}
+                  className='w-full shrink-0 px-2'
+                >
+                  <ReviewCard review={review} />
+                </div>
+              ))}
             </div>
           </div>
+
+          <button
+            onClick={goToPrevious}
+            aria-label='Previous review'
+            className='absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#07111f] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:cursor-pointer hover:bg-[#f9fafb] sm:-left-6'
+          >
+            <Icon icon='material-symbols:chevron-left-rounded' className='h-8 w-8' />
+          </button>
+
+          <button
+            onClick={goToNext}
+            aria-label='Next review'
+            className='absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#07111f] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:cursor-pointer hover:bg-[#f9fafb] sm:-right-6'
+          >
+            <Icon icon='material-symbols:chevron-right-rounded' className='h-8 w-8' />
+          </button>
         </div>
 
-        <div className='columns-1 gap-6 space-y-6 md:columns-2 xl:columns-4'>
-          {visibleReviews.map((review, index) => (
-            <ReviewCard
-              key={`${review.name}-${review.date}-${index}`}
-              review={review}
-            />
-          ))}
-        </div>
+        <div className='mt-10 flex flex-wrap items-center justify-center gap-3'>
+          {allReviews.map((_, index) => {
+            const isActive = index === currentIndex
 
-        {!showMore && (
-          <div className='mt-12 flex justify-center'>
-            <button
-              onClick={() => setShowMore(true)}
-              className='rounded-xl bg-[#07111f] px-8 py-4 text-base font-semibold text-white transition hover:cursor-pointer hover:bg-[#0d1b2d]'
-            >
-              See More
-            </button>
-          </div>
-        )}
+            return (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to review ${index + 1}`}
+                className={`h-3 rounded-full transition-all duration-300 hover:cursor-pointer ${
+                  isActive ? 'w-10 bg-[#07111f]' : 'w-3 bg-black/15'
+                }`}
+              />
+            )
+          })}
+        </div>
       </div>
     </section>
   )

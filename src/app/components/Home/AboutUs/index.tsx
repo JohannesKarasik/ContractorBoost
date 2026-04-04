@@ -16,7 +16,7 @@ const reviews: Review[] = [
   {
     name: 'Contact JGC Inc.',
     initials: 'CJ',
-    date: 'Feb 12, 2026',
+    date: 'Nov 18, 2025',
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
     platform: 'trustpilot',
@@ -24,7 +24,7 @@ const reviews: Review[] = [
   {
     name: 'bradley cassidy',
     initials: 'BC',
-    date: 'Feb 12, 2026',
+    date: 'Aug 09, 2024',
     text: 'Working with Contractor Boost has been great so far. Helping me get set up on Google Business and website live. Just got it set up a week ago and already getting leads.',
     image: '/reviews/bradley-cassidy.png',
     platform: 'trustpilot',
@@ -40,7 +40,7 @@ const reviews: Review[] = [
   {
     name: 'Palmetto Quality Painting',
     initials: 'PQ',
-    date: 'Feb 05, 2026',
+    date: 'May 21, 2025',
     text: 'Great experience. I highly recommend ContractorBoost, they where honest with me when there was a delay with the website and always answered fast. Got my website 2 months ago now and it has transformed my business with consistent leads from the website.',
     image: '/reviews/palmetto-quality-painting.png',
     platform: 'trustpilot',
@@ -48,7 +48,7 @@ const reviews: Review[] = [
   {
     name: 'James Bowling',
     initials: 'JB',
-    date: 'Feb 12, 2026',
+    date: 'Oct 03, 2023',
     text: 'The guys over at Contractor Boost are great and got it all done on time. I highly recommend them.',
     image: '/reviews/james-bowling.png',
     platform: 'google',
@@ -56,7 +56,7 @@ const reviews: Review[] = [
   {
     name: 'Mike Swallows',
     initials: 'MS',
-    date: 'Feb 07, 2026',
+    date: 'Jul 14, 2024',
     text: 'Connor and Joe were great. Very helpful and good at communicating. Thank you so much.',
     image: '/reviews/mike-swallows.png',
     platform: 'google',
@@ -64,7 +64,7 @@ const reviews: Review[] = [
   {
     name: 'Tony Davis',
     initials: 'TD',
-    date: 'Feb 06, 2026',
+    date: 'Jan 24, 2026',
     text: 'Where do I start? They got everything we needed set up within just a couple of days. They responded to my texts and were always there to explain things and help with any questions I had about our new system. I wish I could give more than five stars.',
     image: '/reviews/tony-davis.png',
     platform: 'google',
@@ -72,7 +72,7 @@ const reviews: Review[] = [
   {
     name: 'Jared Walsh',
     initials: 'JW',
-    date: 'Feb 05, 2026',
+    date: 'Mar 11, 2025',
     text: 'Contractor Boost is the real deal. I got screwed over by a couple marketing companies that tried to sell me a line of BS, but Joe and Connor kept their promises and got me set up with a new website in under a week.',
     image: '/reviews/jared-walsh.png',
     platform: 'trustpilot',
@@ -83,7 +83,7 @@ const extraReviews: Review[] = [
   {
     name: 'Chris Martin',
     initials: 'CM',
-    date: 'Feb 04, 2026',
+    date: 'Dec 07, 2023',
     text: 'Very solid experience. They moved fast, communicated clearly, and got our new website looking a lot more professional than what we had before.',
     image: '/reviews/chris-martin.png',
     platform: 'trustpilot',
@@ -91,7 +91,7 @@ const extraReviews: Review[] = [
   {
     name: 'Luis Hernandez',
     initials: 'LH',
-    date: 'Feb 03, 2026',
+    date: 'Sep 16, 2025',
     text: 'These guys know what they are doing. They helped us get everything dialed in and made the whole process way easier than I expected.',
     image: '/reviews/luis-hernandez.png',
     platform: 'trustpilot',
@@ -99,7 +99,7 @@ const extraReviews: Review[] = [
   {
     name: 'Ryan Cooper',
     initials: 'RC',
-    date: 'Feb 02, 2026',
+    date: 'Jun 28, 2024',
     text: 'Contractor Boost helped us get our online presence cleaned up fast. Good communication, fast turnaround, and they actually followed through on what they said.',
     image: '/reviews/ryan-cooper.png',
     platform: 'google',
@@ -107,7 +107,7 @@ const extraReviews: Review[] = [
   {
     name: 'Mason Brooks',
     initials: 'MB',
-    date: 'Jan 30, 2026',
+    date: 'Apr 05, 2023',
     text: 'Our old site was outdated and not bringing in much. The new setup looks way better and already feels like a stronger first impression for customers.',
     image: '/reviews/mason-brooks.png',
     platform: 'trustpilot',
@@ -115,7 +115,7 @@ const extraReviews: Review[] = [
   {
     name: 'Derek Hill',
     initials: 'DH',
-    date: 'Jan 28, 2026',
+    date: 'Feb 12, 2025',
     text: 'Really happy with the service. They answered questions quickly, kept us updated, and got our site launched without dragging the process out.',
     image: '/reviews/derek-hill.png',
     platform: 'trustpilot',
@@ -123,7 +123,7 @@ const extraReviews: Review[] = [
   {
     name: 'Cole Thompson',
     initials: 'CT',
-    date: 'Jan 26, 2026',
+    date: 'Nov 29, 2023',
     text: 'I have dealt with other marketing companies before and this was a completely different experience. Straightforward, helpful, and they delivered what they promised.',
     image: '/reviews/cole-thompson.png',
     platform: 'trustpilot',

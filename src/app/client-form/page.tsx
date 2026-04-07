@@ -457,7 +457,7 @@ export default function FormPage() {
 
   if (submitted) {
     return (
-      <main className="min-h-screen bg-white px-6 py-16 text-[#07111f]">
+        <main className="min-h-screen bg-white px-6 pt-32 pb-16 text-[#07111f]">
         <div className="mx-auto max-w-4xl">
           <div
             style={{
@@ -497,7 +497,7 @@ export default function FormPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white px-6 py-16 text-[#07111f]">
+    <main className="min-h-screen bg-white px-6 pt-32 pb-16 text-[#07111f]">
       <div className="mx-auto max-w-4xl space-y-8">
         <div>
           <h1 className="text-4xl font-bold">Project Form</h1>

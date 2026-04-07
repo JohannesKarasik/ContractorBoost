@@ -179,7 +179,7 @@ function StepOne({
             style={{ ...inputStyle, borderColor: errors.companyName ? "#ef4444" : "#d1d5db" }}
             value={data.companyName}
             onChange={(e) => onChange("companyName", e.target.value)}
-            placeholder="Acme Corp"
+            placeholder="John’s Construction Company"
           />
         </Field>
       </div>

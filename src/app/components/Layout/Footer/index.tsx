@@ -45,9 +45,9 @@ const Footer = () => {
       </footer>
 
       <Script
-        src='https://widgets.leadconnectorhq.com/loader.js'
-        data-resources-url='https://widgets.leadconnectorhq.com/chat-widget/loader.js'
-        data-widget-id='69d50ded3d6e16ec53124db7'
+        src="https://beta.leadconnectorhq.com/loader.js" 
+        data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" 
+        data-widget-id="69d5104b3ebfc281e6af5ba5"
         strategy='afterInteractive'
       />
     </>

@@ -9,7 +9,7 @@ const footerLinks = [
   { label: 'Pricing', href: '#Pricing' },
   { label: 'Testimonials', href: '#Testimonials' },
   { label: 'Our Work', href: '#OurWork' },
-  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms & Conditions and Privacy Policy', href: '/terms-and-conditions-and-privacy-policy' },
 ]
 
 const Footer = () => {

@@ -8,6 +8,7 @@ const footerLinks = [
   { label: 'Pricing', href: '#Pricing' },
   { label: 'Testimonials', href: '#Testimonials' },
   { label: 'Our Work', href: '#OurWork' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
 ]
 
 const Footer = () => {

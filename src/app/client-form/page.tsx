@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export default function ContactPage() {
   const [businessPhone, setBusinessPhone] = useState("");
-  const [personalPhone, setPersonalPhone] = useState("");
   const [samePhone, setSamePhone] = useState<"yes" | "no">("yes");
 
   const formatPhone = (value: string) => {
@@ -20,10 +19,6 @@ export default function ContactPage() {
 
   const handleBusinessPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusinessPhone(formatPhone(e.target.value));
-  };
-
-  const handlePersonalPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPersonalPhone(formatPhone(e.target.value));
   };
 
   return (
@@ -106,22 +101,10 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {samePhone === "no" && (
-            <input
-              type="tel"
-              name="personal_phone"
-              placeholder="Personal Phone"
-              required
-              value={personalPhone}
-              onChange={handlePersonalPhoneChange}
-              className="w-full rounded-lg border px-4 py-3"
-            />
-          )}
-
           <input
             type="text"
-            name="address"
-            placeholder="Address"
+            name="business_address"
+            placeholder="Business Address"
             required
             className="w-full rounded-lg border px-4 py-3"
           />

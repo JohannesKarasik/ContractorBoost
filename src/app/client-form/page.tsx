@@ -3,7 +3,9 @@
 import { useState } from "react";
 
 export default function ContactPage() {
-  const [phone, setPhone] = useState("");
+  const [businessPhone, setBusinessPhone] = useState("");
+  const [personalPhone, setPersonalPhone] = useState("");
+  const [samePhone, setSamePhone] = useState<"yes" | "no">("yes");
 
   const formatPhone = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10);
@@ -16,8 +18,12 @@ export default function ContactPage() {
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(formatPhone(e.target.value));
+  const handleBusinessPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusinessPhone(formatPhone(e.target.value));
+  };
+
+  const handlePersonalPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPersonalPhone(formatPhone(e.target.value));
   };
 
   return (
@@ -63,17 +69,54 @@ export default function ContactPage() {
           <input
             type="tel"
             name="business_phone"
-            placeholder="(123) 456-7890"
+            placeholder="Business Phone"
             required
-            value={phone}
-            onChange={handlePhoneChange}
+            value={businessPhone}
+            onChange={handleBusinessPhoneChange}
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="same_phone" />
-            Is your business phone the same as your personal?
-          </label>
+          <div className="space-y-2">
+            <p className="text-sm font-medium">
+              Is your business phone the same as your personal?
+            </p>
+
+            <div className="flex gap-6">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="same_phone"
+                  value="Yes"
+                  checked={samePhone === "yes"}
+                  onChange={() => setSamePhone("yes")}
+                />
+                Yes
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="same_phone"
+                  value="No"
+                  checked={samePhone === "no"}
+                  onChange={() => setSamePhone("no")}
+                />
+                No
+              </label>
+            </div>
+          </div>
+
+          {samePhone === "no" && (
+            <input
+              type="tel"
+              name="personal_phone"
+              placeholder="Personal Phone"
+              required
+              value={personalPhone}
+              onChange={handlePersonalPhoneChange}
+              className="w-full rounded-lg border px-4 py-3"
+            />
+          )}
 
           <input
             type="text"

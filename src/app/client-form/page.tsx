@@ -158,6 +158,15 @@ export default function ContactPage() {
           <h2 className="text-xl font-semibold pt-4">Required Info for Website</h2>
 
 
+
+          <textarea
+  name="services"
+  placeholder="Which services do you offer? (e.g. roofing, excavating, concrete, landscaping)"
+  required
+  rows={3}
+  className="w-full rounded-lg border px-4 py-3"
+/>
+
           <input
             type="text"
             name="main_area"

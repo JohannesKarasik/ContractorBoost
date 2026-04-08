@@ -137,12 +137,7 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <input
-            type="url"
-            name="website"
-            placeholder="Current Website (optional)"
-            className="w-full rounded-lg border px-4 py-3"
-          />
+
 
           <h2 className="text-xl font-semibold pt-4">Required Info for Website</h2>
 

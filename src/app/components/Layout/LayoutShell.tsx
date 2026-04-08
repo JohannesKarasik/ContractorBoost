@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import Header from '@/app/components/Layout/Header'
 import Footer from '@/app/components/Layout/Footer'
+import ClientFormHeader from '@/app/components/Layout/Header/ClientFormHeader'
 
 export default function LayoutShell({
   children,
@@ -10,13 +11,13 @@ export default function LayoutShell({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const hideHeaderFooter = pathname === '/client-form'
+  const isClientForm = pathname === '/client-form'
 
   return (
     <>
-      {!hideHeaderFooter && <Header />}
+      {isClientForm ? <ClientFormHeader /> : <Header />}
       {children}
-      {!hideHeaderFooter && <Footer />}
+      {!isClientForm && <Footer />}
     </>
   )
 }

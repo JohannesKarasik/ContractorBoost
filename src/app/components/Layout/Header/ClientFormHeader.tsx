@@ -99,11 +99,7 @@ const Header: React.FC = () => {
             }`}>
             <Logo />
           </div>
-          <nav className='hidden lg:flex grow items-center gap-8 justify-center'>
-            {headerData.map((item, index) => (
-              <HeaderLink key={index} item={item} />
-            ))}
-          </nav>
+
           <div
             className={`flex items-center gap-4 pl-16 lg:border-l border-black/10 duration-300 ${
               sticky ? 'py-3' : 'py-7'
@@ -188,12 +184,7 @@ const Header: React.FC = () => {
               className="bg-[url('/images/closed.svg')] bg-no-repeat bg-contain w-5 h-5 absolute top-0 right-0 mr-8 mt-8 dark:invert"
               aria-label='Close menu Modal'></button>
           </div>
-          <nav className='flex flex-col items-start p-4'>
-            {headerData.map(
-              (item: HeaderItem, index: Key | null | undefined) => (
-                <MobileHeaderLink key={index} item={item} />
-              )
-            )}
+
             <div className='mt-4 flex flex-col space-y-4 w-full'>
               <Link
                 href='#'

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import Header from '@/app/components/Layout/Header'
 import Footer from '@/app/components/Layout/Footer'
 import ClientFormHeader from '@/app/components/Layout/Header/ClientFormHeader'
+import ClientFormFooter from '@/app/components/Layout/Header/ClientFormFooter' // 👈 ADD THIS
 
 export default function LayoutShell({
   children,
@@ -17,7 +18,7 @@ export default function LayoutShell({
     <>
       {isClientForm ? <ClientFormHeader /> : <Header />}
       {children}
-      {!isClientForm && <Footer />}
+      {isClientForm ? <ClientFormFooter /> : <Footer />} {/* 👈 CHANGE THIS */}
     </>
   )
 }

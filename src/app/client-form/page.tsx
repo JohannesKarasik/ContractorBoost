@@ -20,7 +20,7 @@ export default function ContactPage() {
           <input
             type="text"
             name="last_name"
-            placeholder="Last Name"
+            placeholder="Full Name"
             required
             className="w-full rounded-lg border px-4 py-3"
           />
@@ -41,14 +41,37 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <input
-            type="tel"
-            name="business_phone"
-            placeholder="Business Phone"
-            required
-            className="w-full rounded-lg border px-4 py-3"
-          />
+import { useState } from "react";
 
+export default function ContactPage() {
+  const [phone, setPhone] = useState("");
+
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 10);
+
+    if (digits.length < 4) return digits;
+    if (digits.length < 7)
+      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+  };
+
+  return (
+    <input
+      type="tel"
+      name="business_phone"
+      placeholder="(123) 456-7890"
+      required
+      value={phone}
+      onChange={handleChange}
+      className="w-full rounded-lg border px-4 py-3"
+    />
+  );
+}
           <label className="flex items-center gap-2">
             <input type="checkbox" name="same_phone" />
             Is your business phone the same as your personal?

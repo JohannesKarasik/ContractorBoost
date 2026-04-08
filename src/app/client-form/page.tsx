@@ -199,12 +199,12 @@ export default function ContactPage() {
   className="w-full rounded-lg border px-4 py-3"
 />
 
-          <textarea
-            name="about"
-            placeholder="About your business (values, story, etc.)"
-            rows={4}
-            className="w-full rounded-lg border px-4 py-3"
-          />
+<textarea
+  name="about"
+  placeholder="Optional: Anything you'd like us to mention on your About Us page (your story, values, who you are, etc.)"
+  rows={4}
+  className="w-full rounded-lg border px-4 py-3"
+/>
 
           <h2 className="text-xl font-semibold pt-4">Additional Context</h2>
 

@@ -35,15 +35,14 @@ export default function ContactPage() {
             value="eee1bc41-1bcb-4bef-886a-5150e7bfd37b"
           />
 
-<h2 className="text-xl font-semibold">
-  Basic Information About You & Your Business
-</h2>
+          <h2 className="text-xl font-semibold">
+            Basic Information About You & Your Business
+          </h2>
 
           <input
             type="text"
             name="last_name"
             placeholder="Full Name"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -51,7 +50,6 @@ export default function ContactPage() {
             type="email"
             name="email"
             placeholder="Email"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -59,7 +57,6 @@ export default function ContactPage() {
             type="text"
             name="legal_business_name"
             placeholder="Legal Business Name"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -67,7 +64,6 @@ export default function ContactPage() {
             type="tel"
             name="business_phone"
             placeholder="Business Phone"
-            required
             value={businessPhone}
             onChange={handleBusinessPhoneChange}
             className="w-full rounded-lg border px-4 py-3"
@@ -107,7 +103,6 @@ export default function ContactPage() {
             type="text"
             name="business_address"
             placeholder="Business Address"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -115,7 +110,6 @@ export default function ContactPage() {
             type="text"
             name="city"
             placeholder="City"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -123,28 +117,23 @@ export default function ContactPage() {
             type="text"
             name="state"
             placeholder="State/Region"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
-<select
-  name="country"
-  required
-  defaultValue=""
-  className="w-full rounded-lg border px-4 py-3"
->
-  <option value="" disabled>
-    Select Country
-  </option>
-  <option value="United States">🇺🇸 United States</option>
-  <option value="Canada">🇨🇦 Canada</option>
-</select>
+          <select
+            name="country"
+            defaultValue=""
+            className="w-full rounded-lg border px-4 py-3"
+          >
+            <option value="">Select Country</option>
+            <option value="United States">🇺🇸 United States</option>
+            <option value="Canada">🇨🇦 Canada</option>
+          </select>
 
           <input
             type="text"
             name="zip"
             placeholder="Zip/Postal Code"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
@@ -157,31 +146,26 @@ export default function ContactPage() {
 
           <h2 className="text-xl font-semibold pt-4">Required Info for Website</h2>
 
-
-
           <textarea
-  name="services"
-  placeholder="Which services do you offer? (e.g. roofing, excavating, concrete, landscaping)"
-  required
-  rows={3}
-  className="w-full rounded-lg border px-4 py-3"
-/>
+            name="services"
+            placeholder="Which services do you offer? (e.g. roofing, excavating, concrete, landscaping)"
+            rows={3}
+            className="w-full rounded-lg border px-4 py-3"
+          />
 
           <input
             type="text"
             name="main_area"
             placeholder="Main area you operate in"
-            required
             className="w-full rounded-lg border px-4 py-3"
           />
 
-<textarea
-  name="radius"
-  placeholder="Approximate service radius (e.g. 40 km / 25 miles)"
-  required
-  rows={2}
-  className="w-full rounded-lg border px-4 py-3"
-/>
+          <textarea
+            name="radius"
+            placeholder="Approximate service radius (e.g. 40 km / 25 miles)"
+            rows={2}
+            className="w-full rounded-lg border px-4 py-3"
+          />
 
           <h2 className="text-xl font-semibold pt-4">Optional Info (Recommended)</h2>
 
@@ -192,25 +176,25 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-<textarea
-  name="projects_completed"
-  placeholder="Projects completed (rough estimate)"
-  rows={2}
-  className="w-full rounded-lg border px-4 py-3"
-/>
+          <textarea
+            name="projects_completed"
+            placeholder="Projects completed (rough estimate)"
+            rows={2}
+            className="w-full rounded-lg border px-4 py-3"
+          />
 
-<textarea
-  name="about"
-  placeholder="Optional: Anything you'd like us to mention on your About Us page (your story, values, who you are, etc.)"
-  rows={4}
-  className="w-full rounded-lg border px-4 py-3"
-/>
+          <textarea
+            name="about"
+            placeholder="Optional: Anything you'd like us to mention on your About Us page (your story, values, who you are, etc.)"
+            rows={4}
+            className="w-full rounded-lg border px-4 py-3"
+          />
 
           <h2 className="text-xl font-semibold pt-4">Additional Context</h2>
 
           <textarea
             name="additional"
-            placeholder="Anything else you'd like to tell us"
+            placeholder="Optional: Anything else you'd like to tell us"
             rows={4}
             className="w-full rounded-lg border px-4 py-3"
           />

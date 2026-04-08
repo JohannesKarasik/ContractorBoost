@@ -192,12 +192,12 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <input
-            type="number"
-            name="projects_completed"
-            placeholder="Projects completed"
-            className="w-full rounded-lg border px-4 py-3"
-          />
+<input
+  type="number"
+  name="projects_completed"
+  placeholder="Projects completed (rough estimate)"
+  className="w-full rounded-lg border px-4 py-3"
+/>
 
           <textarea
             name="about"

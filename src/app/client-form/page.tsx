@@ -35,7 +35,9 @@ export default function ContactPage() {
             value="eee1bc41-1bcb-4bef-886a-5150e7bfd37b"
           />
 
-          <h2 className="text-xl font-semibold">Basic Info</h2>
+<h2 className="text-xl font-semibold">
+  Basic Information About You & Your Business
+</h2>
 
           <input
             type="text"
@@ -125,13 +127,18 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            required
-            className="w-full rounded-lg border px-4 py-3"
-          />
+<select
+  name="country"
+  required
+  defaultValue=""
+  className="w-full rounded-lg border px-4 py-3"
+>
+  <option value="" disabled>
+    Select Country
+  </option>
+  <option value="United States">🇺🇸 United States</option>
+  <option value="Canada">🇨🇦 Canada</option>
+</select>
 
           <input
             type="text"
@@ -150,13 +157,6 @@ export default function ContactPage() {
 
           <h2 className="text-xl font-semibold pt-4">Required Info for Website</h2>
 
-          <textarea
-            name="services"
-            placeholder="Which services do you offer?"
-            required
-            rows={3}
-            className="w-full rounded-lg border px-4 py-3"
-          />
 
           <input
             type="text"

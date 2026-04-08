@@ -130,7 +130,7 @@ const Header: React.FC = () => {
               </div>
             )}
 <a
-  href='https://calendly.com/contractorboost-info/30min'
+  href='https://koalendar.com/e/meet-with-joe-contractorboost'
   target='_blank'
   rel='noopener noreferrer'
   className='hidden lg:block bg-[#fec404] text-[#ffffff] hover:bg-[#e5b000] border border-[#fec404] px-4 py-2 rounded-lg hover:cursor-pointer'
@@ -183,16 +183,15 @@ const Header: React.FC = () => {
   </div>
 
   <div className='mt-4 flex flex-col space-y-4 w-full p-4'>
-    <Link
-      href='#'
-      className='bg-transparent border border-primary text-primary px-4 py-2 rounded-lg'
-      onClick={() => {
-        setIsSignInOpen(true)
-        setNavbarOpen(false)
-      }}
-    >
-      Sign In
-    </Link>
+  <a
+  href="https://app.contractorboost.io/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className='bg-transparent border border-primary text-primary px-4 py-2 rounded-lg'
+  onClick={() => setNavbarOpen(false)}
+>
+  Sign In
+</a>
 
     <Link
       href='#'

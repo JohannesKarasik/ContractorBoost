@@ -175,12 +175,12 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-<input
-  type="text"
+<textarea
   name="radius"
   placeholder="Approximate service radius (e.g. 40 km / 25 miles)"
   required
-  className="w-full min-h-[64px] rounded-lg border px-4 py-5 text-sm sm:min-h-[56px] sm:py-3 sm:text-base"
+  rows={2}
+  className="w-full rounded-lg border px-4 py-3"
 />
 
           <h2 className="text-xl font-semibold pt-4">Optional Info (Recommended)</h2>

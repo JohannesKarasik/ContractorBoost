@@ -12,16 +12,13 @@ export default function ContactLayout({
     <html lang="en">
       <body className={font.className}>
         {/* Custom Header */}
-        <div className="w-full border-b py-4 text-center font-semibold">
    
         </div>
 
         {children}
 
         {/* Custom Footer */}
-        <div className="w-full border-t py-6 text-center text-sm text-gray-500">
-          Custom Footer
-        </div>
+
       </body>
     </html>
   );

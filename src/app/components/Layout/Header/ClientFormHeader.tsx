@@ -174,13 +174,13 @@ const Header: React.FC = () => {
     navbarOpen ? 'translate-x-0' : 'translate-x-full'
   } z-50`}
 >
-  <div className='flex items-center justify-between p-4'>
-    <Logo />
-    <button
-      onClick={() => setNavbarOpen(false)}
-      className="bg-[url('/images/closed.svg')] bg-no-repeat bg-contain w-5 h-5 absolute top-0 right-0 mr-8 mt-8 dark:invert"
-    />
-  </div>
+<div className='relative p-4'>
+  <button
+    onClick={() => setNavbarOpen(false)}
+    className="bg-[url('/images/closed.svg')] bg-no-repeat bg-contain w-5 h-5 absolute top-4 right-4 dark:invert"
+    aria-label='Close menu'
+  />
+</div>
 
   <div className='mt-4 flex flex-col space-y-4 w-full p-4'>
   <a

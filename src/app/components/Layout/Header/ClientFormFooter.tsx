@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 
-const Footer = () => {
+const ClientFormFooter = () => {
   return (
     <>
       <footer className='bg-[#07111f] py-10' id='Footer'>
@@ -22,13 +22,13 @@ const Footer = () => {
       </footer>
 
       <Script
-        src="https://beta.leadconnectorhq.com/loader.js" 
-        data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" 
-        data-widget-id="69d5104b3ebfc281e6af5ba5"
+        src='https://beta.leadconnectorhq.com/loader.js'
+        data-resources-url='https://beta.leadconnectorhq.com/chat-widget/loader.js'
+        data-widget-id='69d5104b3ebfc281e6af5ba5'
         strategy='afterInteractive'
       />
     </>
   )
 }
 
-export default Footer
+export default ClientFormFooter

@@ -168,45 +168,44 @@ const Header: React.FC = () => {
         {navbarOpen && (
           <div className='fixed top-0 left-0 w-full h-full bg-black/50 z-40' />
         )}
-        <div
-          ref={mobileMenuRef}
-          className={`lg:hidden fixed top-0 right-0 h-full w-full bg-darkmode shadow-lg transform transition-transform duration-300 max-w-xs ${
-            navbarOpen ? 'translate-x-0' : 'translate-x-full'
-          } z-50`}>
-          <div className='flex items-center justify-between p-4'>
-            <h2 className='text-lg font-bold text-midnight_text dark:text-midnight_text text-white'>
-              <Logo />
-            </h2>
+<div
+  ref={mobileMenuRef}
+  className={`lg:hidden fixed top-0 right-0 h-full w-full bg-darkmode shadow-lg transform transition-transform duration-300 max-w-xs ${
+    navbarOpen ? 'translate-x-0' : 'translate-x-full'
+  } z-50`}
+>
+  <div className='flex items-center justify-between p-4'>
+    <Logo />
+    <button
+      onClick={() => setNavbarOpen(false)}
+      className="bg-[url('/images/closed.svg')] bg-no-repeat bg-contain w-5 h-5 absolute top-0 right-0 mr-8 mt-8 dark:invert"
+    />
+  </div>
 
-            {/*  */}
-            <button
-              onClick={() => setNavbarOpen(false)}
-              className="bg-[url('/images/closed.svg')] bg-no-repeat bg-contain w-5 h-5 absolute top-0 right-0 mr-8 mt-8 dark:invert"
-              aria-label='Close menu Modal'></button>
-          </div>
+  <div className='mt-4 flex flex-col space-y-4 w-full p-4'>
+    <Link
+      href='#'
+      className='bg-transparent border border-primary text-primary px-4 py-2 rounded-lg'
+      onClick={() => {
+        setIsSignInOpen(true)
+        setNavbarOpen(false)
+      }}
+    >
+      Sign In
+    </Link>
 
-            <div className='mt-4 flex flex-col space-y-4 w-full'>
-              <Link
-                href='#'
-                className='bg-transparent border border-primary text-primary px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white'
-                onClick={() => {
-                  setIsSignInOpen(true)
-                  setNavbarOpen(false)
-                }}>
-                Sign In
-              </Link>
-              <Link
-                href='#'
-                className='bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700'
-                onClick={() => {
-                  setIsSignUpOpen(true)
-                  setNavbarOpen(false)
-                }}>
-                Sign Up
-              </Link>
-            </div>
-          </nav>
-        </div>
+    <Link
+      href='#'
+      className='bg-primary text-white px-4 py-2 rounded-lg'
+      onClick={() => {
+        setIsSignUpOpen(true)
+        setNavbarOpen(false)
+      }}
+    >
+      Sign Up
+    </Link>
+  </div>
+</div>
       </div>
     </header>
   )

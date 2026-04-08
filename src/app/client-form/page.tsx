@@ -178,7 +178,7 @@ export default function ContactPage() {
           <input
             type="text"
             name="radius"
-            placeholder="Service radius (e.g. 40 km)"
+            placeholder="Approximate service radius (e.g. 40 km / 25 miles)"
             required
             className="w-full rounded-lg border px-4 py-3"
           />

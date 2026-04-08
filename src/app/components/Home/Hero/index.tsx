@@ -32,9 +32,9 @@ const Hero = () => {
       <div className='container mx-auto max-w-7xl px-4 pt-24 pb-20'>
         <div className='grid grid-cols-12 items-center gap-8'>
           <div className='col-span-12 md:col-span-12 lg:col-span-8 xl:col-span-8'>
-            <h1 className='w-full text-white'>
-              Website Design & Marketing Systems For Contractors
-            </h1>
+          <h1 className='w-full text-3xl leading-tight text-white sm:text-4xl lg:text-5xl'>
+  Website Design & Marketing Systems For Contractors
+</h1>
 
             <div className='mt-6 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
               <p className='max-w-3xl text-xl leading-9 text-white/80 font-heading'>

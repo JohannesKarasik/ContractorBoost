@@ -13,7 +13,7 @@ export default function ContactLayout({
       <body className={font.className}>
         {/* Custom Header */}
         <div className="w-full border-b py-4 text-center font-semibold">
-          Custom Header
+   
         </div>
 
         {children}

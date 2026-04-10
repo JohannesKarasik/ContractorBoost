@@ -171,12 +171,7 @@ export default function ContactPage() {
             className="w-full rounded-lg border px-4 py-3"
           />
 
-          <textarea
-            name="projects_completed"
-            placeholder="Projects completed (rough estimate)"
-            rows={2}
-            className="w-full rounded-lg border px-4 py-3"
-          />
+
 
           <textarea
             name="about"

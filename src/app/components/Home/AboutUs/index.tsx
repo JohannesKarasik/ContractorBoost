@@ -171,16 +171,12 @@ const VideoPlayer = ({ src, thumbnail }: { src: string; thumbnail?: string }) =>
   return (
     <div className='relative mb-6 overflow-hidden rounded-2xl bg-black'>
       {!playing && thumbnail ? (
-        <div
-          className='relative cursor-pointer'
-          onClick={handlePlay}
-        >
+        <div className='relative cursor-pointer' onClick={handlePlay}>
           <img
             src={thumbnail}
             alt='Video thumbnail'
             className='aspect-video w-full rounded-2xl object-cover'
           />
-          {/* Play button overlay */}
           <div className='absolute inset-0 flex items-center justify-center'>
             <div className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-200 hover:scale-110'>
               <Icon
@@ -288,16 +284,33 @@ const Testimonials = () => {
   const groups = useMemo(() => buildGroups(allReviews), [allReviews])
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const visibleGroups = 2
+
+  // On mobile we show 1 group at a time, on desktop 2
+  const [isMobile, setIsMobile] = useState(false)
+  React.useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  const visibleGroups = isMobile ? 1 : 2
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1 >= groups.length - (visibleGroups - 1) ? 0 : prev + 1))
+    setCurrentIndex((prev) =>
+      prev + 1 >= groups.length - (visibleGroups - 1) ? 0 : prev + 1
+    )
   }
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 < 0 ? groups.length - visibleGroups : prev - 1))
+    setCurrentIndex((prev) =>
+      prev - 1 < 0 ? groups.length - visibleGroups : prev - 1
+    )
   }
 
+  // On mobile each group is 100% wide (1 slot = 100%).
+  // On desktop each column-unit = 25%, video = 2 units, pair = 1 unit.
   const groupOffsets = useMemo(() => {
     const offsets: number[] = []
     let offset = 0
@@ -308,19 +321,21 @@ const Testimonials = () => {
     return offsets
   }, [groups])
 
-  const translatePct = groupOffsets[currentIndex] * 25
+  const translatePct = isMobile
+    ? currentIndex * 100
+    : groupOffsets[currentIndex] * 25
 
   return (
     <section
       id='Testimonials'
-      className='relative overflow-hidden bg-[#f3f4f6] py-24'
+      className='relative overflow-hidden bg-[#f3f4f6] py-16 sm:py-24'
     >
       <div className='mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8'>
-        <div className='mx-auto mb-16 max-w-3xl text-center'>
+        <div className='mx-auto mb-10 max-w-3xl text-center sm:mb-16'>
           <p className='text-sm font-bold uppercase tracking-[0.28em] text-[#f4b400]'>
             Testimonials
           </p>
-          <h2 className='mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl'>
+          <h2 className='mt-4 text-3xl font-extrabold tracking-tight text-[#111827] sm:text-4xl lg:text-5xl'>
             The proof is in the pudding. See what our clients have to say.
           </h2>
         </div>
@@ -329,19 +344,21 @@ const Testimonials = () => {
           {/* LEFT ARROW */}
           <button
             onClick={prev}
-            className='absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
+            className='absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-2 shadow hover:bg-gray-50 sm:left-2 sm:p-3'
           >
-            <Icon icon='mdi:chevron-left' className='h-6 w-6' />
+            <Icon icon='mdi:chevron-left' className='h-5 w-5 sm:h-6 sm:w-6' />
           </button>
 
           {/* RIGHT ARROW */}
           <button
             onClick={next}
-            className='absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
+            className='absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-2 shadow hover:bg-gray-50 sm:right-2 sm:p-3'
           >
-            <Icon icon='mdi:chevron-right' className='h-6 w-6' />
+            <Icon icon='mdi:chevron-right' className='h-5 w-5 sm:h-6 sm:w-6' />
           </button>
 
+          {/* Mobile: each group is full width, stacked cards in a column */}
+          {/* Desktop: mosaic layout with 25%-unit columns */}
           <div
             className='flex items-stretch transition-transform duration-700 ease-in-out'
             style={{ transform: `translateX(-${translatePct}%)` }}
@@ -349,14 +366,20 @@ const Testimonials = () => {
             {groups.map((group, gi) => {
               if (group.type === 'video') {
                 return (
-                  <div key={`video-${gi}`} className='w-2/4 shrink-0 px-3'>
+                  <div
+                    key={`video-${gi}`}
+                    className='w-full shrink-0 px-8 sm:px-3 md:w-2/4'
+                  >
                     <ReviewCard review={group.review} />
                   </div>
                 )
               }
 
               return (
-                <div key={`pair-${gi}`} className='flex w-1/4 shrink-0 flex-col gap-6 px-3'>
+                <div
+                  key={`pair-${gi}`}
+                  className='flex w-full shrink-0 flex-col gap-6 px-8 sm:px-3 md:w-1/4'
+                >
                   {group.reviews.map((r, ri) => (
                     <div key={ri} className='flex-1'>
                       <ReviewCard review={r} />
@@ -366,6 +389,19 @@ const Testimonials = () => {
               )
             })}
           </div>
+        </div>
+
+        {/* Mobile dot indicators */}
+        <div className='mt-6 flex justify-center gap-2 md:hidden'>
+          {groups.map((_, gi) => (
+            <button
+              key={gi}
+              onClick={() => setCurrentIndex(gi)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                gi === currentIndex ? 'w-6 bg-[#f4b400]' : 'w-2 bg-gray-300'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

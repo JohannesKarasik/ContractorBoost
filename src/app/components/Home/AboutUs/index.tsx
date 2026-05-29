@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
 type Review = {
@@ -130,107 +130,74 @@ const extraReviews: Review[] = [
   },
 ]
 
-const StarRow = () => {
-  return (
-    <div className='flex items-center gap-1 text-[#f4b400]'>
-      <span className='mr-1 text-[22px] font-bold leading-none'>5</span>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Icon key={i} icon='material-symbols:star-rounded' className='h-7 w-7' />
-      ))}
+const StarRow = () => (
+  <div className='flex items-center gap-1 text-[#f4b400]'>
+    <span className='mr-1 text-[22px] font-bold leading-none'>5</span>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <Icon key={i} icon='material-symbols:star-rounded' className='h-7 w-7' />
+    ))}
+  </div>
+)
+
+const GoogleIcon = () => (
+  <Icon icon='logos:google-icon' className='h-8 w-8 shrink-0' />
+)
+
+const TrustpilotIcon = () => (
+  <img
+    src='/reviews/trustpilot.png'
+    alt='Trustpilot'
+    className='h-7 w-auto shrink-0 object-contain'
+  />
+)
+
+const ReviewCard = ({ review }: { review: Review }) => (
+  <div className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+    <div className='mb-6 flex items-start justify-between gap-4'>
+      <StarRow />
+      <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
+        {review.date}
+      </span>
     </div>
-  )
-}
 
-const GoogleIcon = () => {
-  return <Icon icon='logos:google-icon' className='h-8 w-8 shrink-0' />
-}
+    <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
+      {review.text}
+    </p>
 
-const TrustpilotIcon = () => {
-  return (
-    <img
-      src='/reviews/trustpilot.png'
-      alt='Trustpilot'
-      className='h-7 w-auto shrink-0 object-contain'
-    />
-  )
-}
-
-const ReviewCard = ({ review }: { review: Review }) => {
-  return (
-    <div
-      className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'
-      style={{ height: 'fit-content' }}
-    >
-      <div className='mb-6 flex items-start justify-between gap-4'>
-        <StarRow />
-        <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
-          {review.date}
+    <div className='mt-6 flex items-center justify-between gap-4'>
+      <div className='flex min-w-0 items-center gap-3'>
+        <img
+          src={review.image}
+          alt={review.name}
+          className='h-12 w-12 shrink-0 rounded-full object-cover'
+        />
+        <span className='truncate text-[16px] font-medium text-[#667085]'>
+          {review.name}
         </span>
       </div>
 
-      <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
-        {review.text}
-      </p>
-
-      <div className='mt-6 flex items-center justify-between gap-4'>
-        <div className='flex min-w-0 items-center gap-3'>
-          <img
-            src={review.image}
-            alt={review.name}
-            className='h-12 w-12 shrink-0 rounded-full object-cover'
-          />
-          <span className='truncate text-[16px] font-medium text-[#667085]'>
-            {review.name}
-          </span>
-        </div>
-
-        {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
-      </div>
+      {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
     </div>
-  )
-}
+  </div>
+)
 
 const Testimonials = () => {
-  const allReviews = useMemo<Review[]>(() => [...reviews, ...extraReviews], [])
-  const extendedReviews = useMemo<Review[]>(
-    () => [...allReviews, ...allReviews, ...allReviews],
-    [allReviews]
-  )
+  const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const [currentIndex, setCurrentIndex] = useState(allReviews.length)
-  const [isTransitioning, setIsTransitioning] = useState(true)
+  const visibleCount = 4
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => prev + 1)
-      setIsTransitioning(true)
-    }, 3000)
+  const next = () => {
+    setCurrentIndex((prev) =>
+      prev + 1 > allReviews.length - visibleCount ? 0 : prev + 1
+    )
+  }
 
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    if (currentIndex >= allReviews.length * 2) {
-      const timeout = setTimeout(() => {
-        setIsTransitioning(false)
-        setCurrentIndex(allReviews.length)
-      }, 700)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [currentIndex, allReviews.length])
-
-  useEffect(() => {
-    if (!isTransitioning) {
-      const raf = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setIsTransitioning(true)
-        })
-      })
-
-      return () => cancelAnimationFrame(raf)
-    }
-  }, [isTransitioning])
+  const prev = () => {
+    setCurrentIndex((prev) =>
+      prev - 1 < 0 ? allReviews.length - visibleCount : prev - 1
+    )
+  }
 
   return (
     <section
@@ -244,24 +211,37 @@ const Testimonials = () => {
           </p>
 
           <h2 className='mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl'>
-  The proof is in the pudding. See what our clients have to say.
-</h2>
+            The proof is in the pudding. See what our clients have to say.
+          </h2>
         </div>
 
-        <div className='overflow-hidden'>
+        <div className='relative overflow-hidden'>
+          {/* LEFT ARROW */}
+          <button
+            onClick={prev}
+            className='absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
+          >
+            <Icon icon='mdi:chevron-left' className='h-6 w-6' />
+          </button>
+
+          {/* RIGHT ARROW */}
+          <button
+            onClick={next}
+            className='absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
+          >
+            <Icon icon='mdi:chevron-right' className='h-6 w-6' />
+          </button>
+
           <div
-            className={`flex items-start ${
-              isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''
-            }`}
+            className='flex items-start transition-transform duration-700 ease-in-out'
             style={{
               transform: `translateX(-${currentIndex * (100 / 4)}%)`,
             }}
           >
-            {extendedReviews.map((review, index) => (
+            {allReviews.map((review, index) => (
               <div
-                key={`${review.name}-${review.date}-${index}`}
+                key={`${review.name}-${index}`}
                 className='shrink-0 px-3 md:w-1/2 xl:w-1/4'
-                style={{ height: 'fit-content', alignSelf: 'flex-start' }}
               >
                 <ReviewCard review={review} />
               </div>

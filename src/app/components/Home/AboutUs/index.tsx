@@ -11,6 +11,7 @@ type Review = {
   image: string
   platform: 'google' | 'trustpilot'
   video?: string
+  thumbnail?: string
 }
 
 const reviews: Review[] = [
@@ -22,6 +23,7 @@ const reviews: Review[] = [
     image: '/reviews/awmlogo.jpeg',
     platform: 'trustpilot',
     video: '/reviews/videoreview1.mov',
+    thumbnail: '/reviews/thumbnail1.png',
   },
   {
     name: 'bradley cassidy',
@@ -153,73 +155,160 @@ const TrustpilotIcon = () => (
   />
 )
 
-const ReviewCard = ({ review }: { review: Review }) => (
-  <div className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
-    <div className='mb-6 flex items-start justify-between gap-4'>
-      <StarRow />
-      <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
-        {review.date}
-      </span>
-    </div>
+const TEXT_LIMIT = 120
 
-    {review.video && (
-      <div className='mb-6 overflow-hidden rounded-2xl'>
+const VideoPlayer = ({ src, thumbnail }: { src: string; thumbnail?: string }) => {
+  const [playing, setPlaying] = useState(false)
+  const videoRef = React.useRef<HTMLVideoElement>(null)
+
+  const handlePlay = () => {
+    setPlaying(true)
+    setTimeout(() => {
+      videoRef.current?.play()
+    }, 0)
+  }
+
+  return (
+    <div className='relative mb-6 overflow-hidden rounded-2xl bg-black'>
+      {!playing && thumbnail ? (
+        <div
+          className='relative cursor-pointer'
+          onClick={handlePlay}
+        >
+          <img
+            src={thumbnail}
+            alt='Video thumbnail'
+            className='aspect-video w-full rounded-2xl object-cover'
+          />
+          {/* Play button overlay */}
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <div className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-200 hover:scale-110'>
+              <Icon
+                icon='material-symbols:play-arrow-rounded'
+                className='h-9 w-9 translate-x-0.5 text-[#111827]'
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
         <video
+          ref={videoRef}
           controls
-          preload='none'
           playsInline
-          poster={review.image}
+          autoPlay={playing}
           className='aspect-video w-full rounded-2xl bg-black'
         >
-          <source src={review.video} type='video/mp4' />
+          <source src={src} type='video/mp4' />
         </video>
-      </div>
-    )}
+      )}
+    </div>
+  )
+}
 
-    <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
-      {review.text}
-    </p>
+const ReviewCard = ({ review }: { review: Review }) => {
+  const [expanded, setExpanded] = useState(false)
+  const isLong = review.text.length > TEXT_LIMIT
+  const displayText =
+    !review.video && isLong && !expanded
+      ? review.text.slice(0, TEXT_LIMIT).trimEnd() + '…'
+      : review.text
 
-    <div className='mt-6 flex items-center justify-between gap-4'>
-      <div className='flex min-w-0 items-center gap-3'>
-        <img
-          src={review.image}
-          alt={review.name}
-          className='h-12 w-12 shrink-0 rounded-full object-cover'
-        />
-        <span className='truncate text-[16px] font-medium text-[#667085]'>
-          {review.name}
+  return (
+    <div className='flex h-full w-full flex-col rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+      <div className='mb-6 flex items-start justify-between gap-4'>
+        <StarRow />
+        <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
+          {review.date}
         </span>
       </div>
 
-      {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
+      {review.video && (
+        <VideoPlayer src={review.video} thumbnail={review.thumbnail} />
+      )}
+
+      <div className='flex-1'>
+        <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
+          {displayText}
+        </p>
+        {!review.video && isLong && (
+          <button
+            onClick={() => setExpanded((e) => !e)}
+            className='mt-1 text-[14px] font-semibold text-[#f4b400] hover:underline'
+          >
+            {expanded ? 'Show less' : 'Read more'}
+          </button>
+        )}
+      </div>
+
+      <div className='mt-6 flex items-center justify-between gap-4'>
+        <div className='flex min-w-0 items-center gap-3'>
+          <img
+            src={review.image}
+            alt={review.name}
+            className='h-12 w-12 shrink-0 rounded-full object-cover'
+          />
+          <span className='truncate text-[16px] font-medium text-[#667085]'>
+            {review.name}
+          </span>
+        </div>
+        {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
+      </div>
     </div>
-  </div>
-)
+  )
+}
+
+type Group =
+  | { type: 'video'; review: Review; originalIndex: number }
+  | { type: 'pair'; reviews: [Review, Review] | [Review]; originalIndices: [number] | [number, number] }
+
+function buildGroups(allReviews: Review[]): Group[] {
+  const groups: Group[] = []
+  let i = 0
+  while (i < allReviews.length) {
+    const review = allReviews[i]
+    if (review.video) {
+      groups.push({ type: 'video', review, originalIndex: i })
+      i++
+    } else {
+      const next = allReviews[i + 1]
+      if (next && !next.video) {
+        groups.push({ type: 'pair', reviews: [review, next], originalIndices: [i, i + 1] })
+        i += 2
+      } else {
+        groups.push({ type: 'pair', reviews: [review], originalIndices: [i] })
+        i++
+      }
+    }
+  }
+  return groups
+}
 
 const Testimonials = () => {
   const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
+  const groups = useMemo(() => buildGroups(allReviews), [allReviews])
+
   const [currentIndex, setCurrentIndex] = useState(0)
-
-  const visibleCount = 4
-
-  // Calculate total "slots" — video reviews count as 2
-  const totalSlots = allReviews.reduce(
-    (sum, r) => sum + (r.video ? 2 : 1),
-    0
-  )
+  const visibleGroups = 2
 
   const next = () => {
-    setCurrentIndex((prev) =>
-      prev + 1 > totalSlots - visibleCount ? 0 : prev + 1
-    )
+    setCurrentIndex((prev) => (prev + 1 >= groups.length - (visibleGroups - 1) ? 0 : prev + 1))
   }
 
   const prev = () => {
-    setCurrentIndex((prev) =>
-      prev - 1 < 0 ? totalSlots - visibleCount : prev - 1
-    )
+    setCurrentIndex((prev) => (prev - 1 < 0 ? groups.length - visibleGroups : prev - 1))
   }
+
+  const groupOffsets = useMemo(() => {
+    const offsets: number[] = []
+    let offset = 0
+    for (const g of groups) {
+      offsets.push(offset)
+      offset += g.type === 'video' ? 2 : 1
+    }
+    return offsets
+  }, [groups])
+
+  const translatePct = groupOffsets[currentIndex] * 25
 
   return (
     <section
@@ -231,7 +320,6 @@ const Testimonials = () => {
           <p className='text-sm font-bold uppercase tracking-[0.28em] text-[#f4b400]'>
             Testimonials
           </p>
-
           <h2 className='mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl'>
             The proof is in the pudding. See what our clients have to say.
           </h2>
@@ -255,23 +343,28 @@ const Testimonials = () => {
           </button>
 
           <div
-            className='flex items-start transition-transform duration-700 ease-in-out'
-            style={{
-              transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
-            }}
+            className='flex items-stretch transition-transform duration-700 ease-in-out'
+            style={{ transform: `translateX(-${translatePct}%)` }}
           >
-            {allReviews.map((review, index) => (
-              <div
-                key={`${review.name}-${index}`}
-                className={`shrink-0 px-3 ${
-                  review.video
-                    ? 'md:w-1/2 xl:w-2/4'
-                    : 'md:w-1/2 xl:w-1/4'
-                }`}
-              >
-                <ReviewCard review={review} />
-              </div>
-            ))}
+            {groups.map((group, gi) => {
+              if (group.type === 'video') {
+                return (
+                  <div key={`video-${gi}`} className='w-2/4 shrink-0 px-3'>
+                    <ReviewCard review={group.review} />
+                  </div>
+                )
+              }
+
+              return (
+                <div key={`pair-${gi}`} className='flex w-1/4 shrink-0 flex-col gap-6 px-3'>
+                  {group.reviews.map((r, ri) => (
+                    <div key={ri} className='flex-1'>
+                      <ReviewCard review={r} />
+                    </div>
+                  ))}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

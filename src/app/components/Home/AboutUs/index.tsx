@@ -10,6 +10,7 @@ type Review = {
   text: string
   image: string
   platform: 'google' | 'trustpilot'
+  video?: string
 }
 
 const reviews: Review[] = [
@@ -20,6 +21,7 @@ const reviews: Review[] = [
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
     platform: 'trustpilot',
+    video: '/reviews/videoreview1.mp4',
   },
   {
     name: 'bradley cassidy',
@@ -159,6 +161,20 @@ const ReviewCard = ({ review }: { review: Review }) => (
         {review.date}
       </span>
     </div>
+
+    {review.video && (
+      <div className='mb-6 overflow-hidden rounded-2xl'>
+        <video
+          controls
+          preload='none'
+          playsInline
+          poster={review.image}
+          className='aspect-video w-full rounded-2xl bg-black'
+        >
+          <source src={review.video} type='video/mp4' />
+        </video>
+      </div>
+    )}
 
     <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
       {review.text}

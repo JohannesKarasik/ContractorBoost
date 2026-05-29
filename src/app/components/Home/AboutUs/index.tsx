@@ -15,11 +15,11 @@ type Review = {
 
 const reviews: Review[] = [
   {
-    name: 'Contact JGC Inc.',
-    initials: 'CJ',
+    name: 'All Weather Maintenance.',
+    initials: 'CG',
     date: 'Nov 18, 2025',
-    text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
-    image: '/reviews/jgc-inc.png',
+    text: "I’ve been working with them for over a month now, and they’ve been giving me leads and increasing my sales by about 50%. I have nothing but good things to say about Joe and ContractorBoost.",
+    image: '/reviews/awmlogo.jpeg',
     platform: 'trustpilot',
     video: '/reviews/videoreview1.mov',
   },
@@ -35,7 +35,7 @@ const reviews: Review[] = [
     name: 'Salvador Tovar',
     initials: 'ST',
     date: 'Feb 06, 2026',
-    text: "Can't recommend enough.",
+    text: "Can’t recommend enough.",
     image: '/reviews/salvadortovar.png',
     platform: 'google',
   },
@@ -153,49 +153,57 @@ const TrustpilotIcon = () => (
   />
 )
 
-const ReviewCard = ({ review }: { review: Review }) => (
-  <div className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
-    <div className='mb-6 flex items-start justify-between gap-4'>
-      <StarRow />
-      <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
-        {review.date}
-      </span>
-    </div>
+const ReviewCard = ({ review }: { review: Review }) => {
+  const isVideo = !!review.video
 
-    {review.video && (
-      <div className='mb-6 overflow-hidden rounded-2xl'>
-        <video
-          controls
-          preload='none'
-          playsInline
-          poster={review.image}
-          className='aspect-video w-full rounded-2xl bg-black'
-        >
-          <source src={review.video} type='video/mp4' />
-        </video>
-      </div>
-    )}
-
-    <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
-      {review.text}
-    </p>
-
-    <div className='mt-6 flex items-center justify-between gap-4'>
-      <div className='flex min-w-0 items-center gap-3'>
-        <img
-          src={review.image}
-          alt={review.name}
-          className='h-12 w-12 shrink-0 rounded-full object-cover'
-        />
-        <span className='truncate text-[16px] font-medium text-[#667085]'>
-          {review.name}
+  return (
+    <div
+      className={`block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)] ${
+        isVideo ? 'xl:col-span-2' : ''
+      }`}
+    >
+      <div className='mb-6 flex items-start justify-between gap-4'>
+        <StarRow />
+        <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
+          {review.date}
         </span>
       </div>
 
-      {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
+      {review.video && (
+        <div className='mb-6 overflow-hidden rounded-2xl'>
+          <video
+            controls
+            preload='none'
+            playsInline
+            poster={review.image}
+            className='aspect-video w-full rounded-2xl bg-black'
+          >
+            <source src={review.video} type='video/mp4' />
+          </video>
+        </div>
+      )}
+
+      <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
+        {review.text}
+      </p>
+
+      <div className='mt-6 flex items-center justify-between gap-4'>
+        <div className='flex min-w-0 items-center gap-3'>
+          <img
+            src={review.image}
+            alt={review.name}
+            className='h-12 w-12 shrink-0 rounded-full object-cover'
+          />
+          <span className='truncate text-[16px] font-medium text-[#667085]'>
+            {review.name}
+          </span>
+        </div>
+
+        {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const Testimonials = () => {
   const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
@@ -232,7 +240,6 @@ const Testimonials = () => {
         </div>
 
         <div className='relative overflow-hidden'>
-          {/* LEFT ARROW */}
           <button
             onClick={prev}
             className='absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
@@ -240,7 +247,6 @@ const Testimonials = () => {
             <Icon icon='mdi:chevron-left' className='h-6 w-6' />
           </button>
 
-          {/* RIGHT ARROW */}
           <button
             onClick={next}
             className='absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
@@ -257,7 +263,9 @@ const Testimonials = () => {
             {allReviews.map((review, index) => (
               <div
                 key={`${review.name}-${index}`}
-                className='shrink-0 px-3 md:w-1/2 xl:w-1/4'
+                className={`shrink-0 px-3 md:w-1/2 xl:w-1/4 ${
+                  review.video ? 'xl:w-1/2' : ''
+                }`}
               >
                 <ReviewCard review={review} />
               </div>

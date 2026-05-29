@@ -20,7 +20,7 @@ const reviews: Review[] = [
     initials: 'CG',
     date: 'Nov 18, 2025',
     text: "I've been working with them for over a month now, and they've been giving me leads and increasing my sales by about 50%. I have nothing but good things to say about Joe and ContractorBoost.",
-    image: '/reviews/awmlogo.jpeg',
+    image: '/reviews/awmlogo.png',
     platform: 'trustpilot',
     video: '/reviews/videoreview1.mov',
     thumbnail: '/reviews/thumbnail1.png',

@@ -18,7 +18,7 @@ const reviews: Review[] = [
     name: 'All Weather Maintenance.',
     initials: 'CG',
     date: 'Nov 18, 2025',
-    text: "I’ve been working with them for over a month now, and they’ve been giving me leads and increasing my sales by about 50%. I have nothing but good things to say about Joe and ContractorBoost.",
+    text: "I've been working with them for over a month now, and they've been giving me leads and increasing my sales by about 50%. I have nothing but good things to say about Joe and ContractorBoost.",
     image: '/reviews/awmlogo.jpeg',
     platform: 'trustpilot',
     video: '/reviews/videoreview1.mov',
@@ -35,7 +35,7 @@ const reviews: Review[] = [
     name: 'Salvador Tovar',
     initials: 'ST',
     date: 'Feb 06, 2026',
-    text: "Can’t recommend enough.",
+    text: "Can't recommend enough.",
     image: '/reviews/salvadortovar.png',
     platform: 'google',
   },
@@ -153,57 +153,49 @@ const TrustpilotIcon = () => (
   />
 )
 
-const ReviewCard = ({ review }: { review: Review }) => {
-  const isVideo = !!review.video
+const ReviewCard = ({ review }: { review: Review }) => (
+  <div className='block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)]'>
+    <div className='mb-6 flex items-start justify-between gap-4'>
+      <StarRow />
+      <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
+        {review.date}
+      </span>
+    </div>
 
-  return (
-    <div
-      className={`block w-full rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)] ${
-        isVideo ? 'xl:col-span-2' : ''
-      }`}
-    >
-      <div className='mb-6 flex items-start justify-between gap-4'>
-        <StarRow />
-        <span className='whitespace-nowrap text-[15px] font-medium text-[#6b778c]'>
-          {review.date}
+    {review.video && (
+      <div className='mb-6 overflow-hidden rounded-2xl'>
+        <video
+          controls
+          preload='none'
+          playsInline
+          poster={review.image}
+          className='aspect-video w-full rounded-2xl bg-black'
+        >
+          <source src={review.video} type='video/mp4' />
+        </video>
+      </div>
+    )}
+
+    <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
+      {review.text}
+    </p>
+
+    <div className='mt-6 flex items-center justify-between gap-4'>
+      <div className='flex min-w-0 items-center gap-3'>
+        <img
+          src={review.image}
+          alt={review.name}
+          className='h-12 w-12 shrink-0 rounded-full object-cover'
+        />
+        <span className='truncate text-[16px] font-medium text-[#667085]'>
+          {review.name}
         </span>
       </div>
 
-      {review.video && (
-        <div className='mb-6 overflow-hidden rounded-2xl'>
-          <video
-            controls
-            preload='none'
-            playsInline
-            poster={review.image}
-            className='aspect-video w-full rounded-2xl bg-black'
-          >
-            <source src={review.video} type='video/mp4' />
-          </video>
-        </div>
-      )}
-
-      <p className='text-[18px] leading-8 text-[#313741] sm:text-[17px] sm:leading-8'>
-        {review.text}
-      </p>
-
-      <div className='mt-6 flex items-center justify-between gap-4'>
-        <div className='flex min-w-0 items-center gap-3'>
-          <img
-            src={review.image}
-            alt={review.name}
-            className='h-12 w-12 shrink-0 rounded-full object-cover'
-          />
-          <span className='truncate text-[16px] font-medium text-[#667085]'>
-            {review.name}
-          </span>
-        </div>
-
-        {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
-      </div>
+      {review.platform === 'trustpilot' ? <TrustpilotIcon /> : <GoogleIcon />}
     </div>
-  )
-}
+  </div>
+)
 
 const Testimonials = () => {
   const allReviews = useMemo(() => [...reviews, ...extraReviews], [])
@@ -211,15 +203,21 @@ const Testimonials = () => {
 
   const visibleCount = 4
 
+  // Calculate total "slots" — video reviews count as 2
+  const totalSlots = allReviews.reduce(
+    (sum, r) => sum + (r.video ? 2 : 1),
+    0
+  )
+
   const next = () => {
     setCurrentIndex((prev) =>
-      prev + 1 > allReviews.length - visibleCount ? 0 : prev + 1
+      prev + 1 > totalSlots - visibleCount ? 0 : prev + 1
     )
   }
 
   const prev = () => {
     setCurrentIndex((prev) =>
-      prev - 1 < 0 ? allReviews.length - visibleCount : prev - 1
+      prev - 1 < 0 ? totalSlots - visibleCount : prev - 1
     )
   }
 
@@ -240,6 +238,7 @@ const Testimonials = () => {
         </div>
 
         <div className='relative overflow-hidden'>
+          {/* LEFT ARROW */}
           <button
             onClick={prev}
             className='absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
@@ -247,6 +246,7 @@ const Testimonials = () => {
             <Icon icon='mdi:chevron-left' className='h-6 w-6' />
           </button>
 
+          {/* RIGHT ARROW */}
           <button
             onClick={next}
             className='absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-3 shadow hover:bg-gray-50'
@@ -257,14 +257,16 @@ const Testimonials = () => {
           <div
             className='flex items-start transition-transform duration-700 ease-in-out'
             style={{
-              transform: `translateX(-${currentIndex * (100 / 4)}%)`,
+              transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
             }}
           >
             {allReviews.map((review, index) => (
               <div
                 key={`${review.name}-${index}`}
-                className={`shrink-0 px-3 md:w-1/2 xl:w-1/4 ${
-                  review.video ? 'xl:w-1/2' : ''
+                className={`shrink-0 px-3 ${
+                  review.video
+                    ? 'md:w-1/2 xl:w-2/4'
+                    : 'md:w-1/2 xl:w-1/4'
                 }`}
               >
                 <ReviewCard review={review} />

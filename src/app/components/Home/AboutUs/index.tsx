@@ -21,7 +21,7 @@ const reviews: Review[] = [
     text: "Website looks good and they're extremely accessible. Been very good so far and have seen good leads from it.",
     image: '/reviews/jgc-inc.png',
     platform: 'trustpilot',
-    video: '/reviews/videoreview1.mp4',
+    video: '/reviews/videoreview1.mov',
   },
   {
     name: 'bradley cassidy',

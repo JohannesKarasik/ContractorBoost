@@ -1,3 +1,4 @@
+
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -32,9 +33,9 @@ const Hero = () => {
       <div className='container mx-auto max-w-7xl px-4 pt-24 pb-20'>
         <div className='grid grid-cols-12 items-center gap-8'>
           <div className='col-span-12 md:col-span-12 lg:col-span-8 xl:col-span-8'>
-          <h1 className='w-full text-3xl leading-tight text-white sm:text-4xl lg:text-5xl'>
-  Website Design & Marketing Systems For Contractors
-</h1>
+            <h1 className='w-full text-3xl leading-tight text-white sm:text-4xl lg:text-5xl'>
+              Website Design & Marketing Systems For Contractors
+            </h1>
 
             <div className='mt-6 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
               <p className='max-w-3xl text-xl leading-9 text-white/80 font-heading'>
@@ -43,17 +44,14 @@ const Hero = () => {
                 commit to using them.
               </p>
 
-
-
-                <a
-  href='https://calendly.com/contractorboost-info/30min'
-  target='_blank'
-  rel='noopener noreferrer'
-  className='block min-w-[220px] rounded-lg bg-[#fec404] px-10 py-4 text-center text-lg font-semibold text-white transition hover:cursor-pointer hover:bg-[#e5b000]'
->
-  Book a call
-</a>
-              </div>
+              <a
+                href='https://calendly.com/contractorboost-info/30min'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='block min-w-[220px] rounded-lg bg-[#fec404] px-10 py-4 text-center text-lg font-semibold text-white transition hover:cursor-pointer hover:bg-[#e5b000]'
+              >
+                Book a call
+              </a>
             </div>
 
             <div className='mt-8 max-w-md overflow-hidden rounded-2xl'>
@@ -85,3 +83,4 @@ const Hero = () => {
 }
 
 export default Hero
+

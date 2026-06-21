@@ -43,25 +43,7 @@ const Hero = () => {
                 commit to using them.
               </p>
 
-              <div className='shrink-0'>
-                <div className='mb-4 flex items-center'>
-                  <div className='flex -space-x-3'>
-                    {people.map((person, index) => (
-                      <div
-                        key={index}
-                        className='h-12 w-12 overflow-hidden rounded-full border-2 border-[#07111f] bg-white'
-                      >
-                        <Image
-                          src={person}
-                          alt={`Client ${index + 1}`}
-                          width={48}
-                          height={48}
-                          className='h-full w-full object-cover'
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+
 
                 <a
   href='https://calendly.com/contractorboost-info/30min'

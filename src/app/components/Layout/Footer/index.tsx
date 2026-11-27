@@ -42,12 +42,28 @@ const Footer = () => {
             </ul>
           </nav>
         </div>
+
+        <div className='mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-6 sm:px-6 lg:px-8'>
+          <div className='flex flex-col items-center justify-between gap-3 text-sm text-white/70 lg:flex-row'>
+            <address className='flex flex-col items-center gap-2 not-italic sm:flex-row sm:gap-6'>
+              <span>ContractorBoost</span>
+              <span>Bakkesvinget 73, 4000 Roskilde, Denmark</span>
+              <a href='tel:+4581611852' className='transition hover:text-white'>
+                +45 81 61 18 52
+              </a>
+              <a href='mailto:info@contractorboost.io' className='transition hover:text-white'>
+                info@contractorboost.io
+              </a>
+            </address>
+            <p>© {new Date().getFullYear()} ContractorBoost. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
 
       <Script
-        src="https://widgets.leadconnectorhq.com/loader.js" 
-        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" 
-        data-widget-id="6b08f370a1da58ee0f9a10e5"
+        src='https://widgets.leadconnectorhq.com/loader.js'
+        data-resources-url='https://widgets.leadconnectorhq.com/chat-widget/loader.js'
+        data-widget-id='6b08f370a1da58ee0f9a10e5'
         strategy='afterInteractive'
       />
     </>

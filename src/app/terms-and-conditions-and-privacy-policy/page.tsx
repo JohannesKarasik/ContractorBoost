@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 export default function PrivacyPolicyPage() {
     return (
-      <main className="min-h-screen bg-white px-6 py-16 text-[#07111f]">
+      <main className="min-h-screen bg-white px-6 pt-36 pb-16 text-[#07111f]">
         <div className="mx-auto max-w-4xl space-y-8">
   
           <h1 className="text-4xl font-bold">Terms and Conditions</h1>
